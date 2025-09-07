@@ -1,135 +1,100 @@
 🍎 NutriTrack
 
-Version: 1.0
-Course: FIT2081 – Mobile App Development
-Date: March 2025
+Platform: Android (Kotlin + Jetpack Compose)
+Status: Active Project
+Purpose: Help users track their food intake and understand dietary habits through scores and insights.
 
-NutriTrack is a mobile app that helps users track their food intake and get insights into their dietary habits.
-This repo implements the student version of NutriTrack using Kotlin + Jetpack Compose with CSV data integration.
+📌 Overview
 
-📌 Project Overview
+NutriTrack is a mobile app built to make nutrition tracking simple and visual.
+The app evolves across two major versions:
 
-The app has three main goals:
+NutriTrack Core (v1.0) – first release with CSV-based login and food score display.
 
-Allow users to log in with their pre-registered ID and phone number (from CSV).
+NutriTrack Pro (v2.0) – upgraded release with a local Room database, multi-user accounts, and fruit insights powered by an external API.
 
-Display food quality scores and allow edits through a questionnaire.
+🚀 Features
+v1.0 – Core
 
-Provide insights into dietary breakdown via visual progress indicators.
+Welcome screen with branding, disclaimer, and login access.
 
-📂 App Structure
+Login via CSV (UserID + Phone validation).
 
-The app is structured into three core areas:
+Food intake questionnaire (categories, personas, meal/sleep times).
 
-Welcome & Login
+Home screen showing food quality score.
 
-Branding, disclaimer, and login entry point.
+Insights screen with category breakdown and progress bars.
 
-CSV-based validation (User ID + phone number).
+Local storage using SharedPreferences.
 
-Home
+v2.0 – Pro
 
-Displays overall food quality score.
+Room database (migrated from CSV).
 
-Quick access to questionnaire edits.
+Multi-user login system:
 
-Insights
+First-time login = claim account (UserID + Phone + set password).
 
-Category-wise breakdown of diet scores.
+Future logins = UserID + password.
 
-Visualised with progress bars.
+Auto-login until explicit logout.
 
-Extra buttons for sharing/improvement (stubbed).
+Fruit insights:
 
-🖼️ Screens & Features
-1. Welcome Screen
+Integration with FruityVice API
+.
 
-App logo + name (NutriTrack).
+Low fruit score → users can query fruit nutrition facts.
 
-Disclaimer + link to Monash Nutrition Clinic.
+Optimal fruit score → app displays placeholder imagery.
 
-Login button → navigates to login.
+Settings screen:
 
-Student signature (e.g. Alex Scott (14578373)) must appear somewhere.
+Show logged-in user info.
 
-2. Login Screen
+Logout option.
 
-Dropdown: select User ID (from CSV).
+Built with MVVM architecture using Repository → ViewModel → LiveData.
 
-Text field: enter phone number (must match CSV).
+Networking with Retrofit + Coroutines.
 
-Validation rules:
+📊 Version Comparison
+Feature	v1.0 (Core)	v2.0 (Pro)
+CSV login + validation	✅	➖ (replaced by DB)
+SharedPreferences store	✅	➖ (migrated to DB)
+Room DB	❌	✅
+Multi-user accounts	❌	✅
+Food score display	✅	✅
+Insights breakdown	✅	✅
+Fruit insights (API)	❌	✅
+Settings + logout	❌	✅
+📱 User Flow (v2.0)
 
-User ID must exist.
+Launch → Welcome
 
-Phone must match entry.
+Login (claim account or authenticate)
 
-If invalid → error message.
+Questionnaire (optional update)
 
-Continue → questionnaire.
+Home → view overall food score
 
-3. Food Intake Questionnaire
+Insights → category breakdown + “Improve my diet”
 
-Checkboxes: food categories (fruits, veg, grains, etc.).
+Fruit Insights → nutrition facts or placeholder image
 
-Persona selection (buttons).
+Settings → view user info + logout
 
-Dropdown: choose best-fitting persona.
+🛠️ Tech Stack
 
-Time pickers:
+Language: Kotlin
 
-Biggest meal time
+UI: Jetpack Compose
 
-Sleep time
+State Management: ViewModel + LiveData
 
-Wake-up time
+Persistence: Room Database, SharedPreferences (v1.0 only)
 
-Save → stores locally in SharedPreferences.
+Networking: Retrofit + Coroutines
 
-4. Home Screen
-
-Greeting: “Hello, [UserID]”.
-
-Displays Food Quality Score (from CSV).
-
-Edit button → back to questionnaire.
-
-Explanation text: meaning of the score.
-
-Navigation to Insights via bottom bar or buttons.
-
-5. Insights Screen
-
-Progress bars for:
-
-Vegetables, Fruits, Grains & Cereals, Whole Grains, Meat, Dairy, etc.
-
-Total score display (from CSV).
-
-Buttons:
-
-Share with someone
-
-Improve my diet (stub — no action yet).
-
-📊 Data Handling
-
-User data provided in CSV file (IDs, phone numbers, food quality scores).
-
-CSV lookup is required at login (UserID + phone validation).
-
-After login:
-
-Home screen loads total food quality score.
-
-Insights screen loads category-wise breakdown.
-
-✅ Implementation Notes
-
-Package name must include student’s firstname + student ID.
-
-Navigation handled via Jetpack Compose Navigation.
-
-Persistent questionnaire data stored in SharedPreferences.
-
-CSV parsing can be done with built-in Kotlin libraries or third-party parsers.
+Architecture: MVVM
